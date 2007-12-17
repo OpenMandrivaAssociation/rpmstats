@@ -10,7 +10,6 @@ Source0: %{name}-%{version}.tar.bz2
 License: GPL
 Group: System/Configuration/Packaging
 BuildRequires:	rpm-devel
-BuildRoot: %{_tmppath}/%{name}-buildroot
 Prefix: %{_prefix}
 
 %description
