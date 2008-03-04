@@ -1,17 +1,12 @@
-%define name rpmstats
-%define version 0.5
-%define release %mkrel 3
-
-Summary: Gather statistics from installed packages
-Name: %{name}
-Version: %{version}
-Release: %{release}
-Source0: %{name}-%{version}.tar.bz2
-License: GPL
-Group: System/Configuration/Packaging
+Summary:	Gather statistics from installed packages
+Name:		rpmstats
+Version:	0.5.1
+Release:	%mkrel 1
+Source0:	%{name}-%{version}.tar.bz2
+License:	GPL
+Group:		System/Configuration/Packaging
 BuildRequires:	rpm-devel
-BuildRoot: %{_tmppath}/%{name}-buildroot
-Prefix: %{_prefix}
+BuildRoot:	%{_tmppath}/%{name}-buildroot
 
 %description
 rpmstats retrieves statistics about installed packages.
@@ -21,7 +16,7 @@ rpmstats retrieves statistics about installed packages.
 
 %build
 %configure2_5x
-%make CPPFLAGS=-DRPM_42
+%make
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -36,4 +31,3 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_mandir}/*/*
 %{_bindir}/*
 %{_libdir}/*
-
