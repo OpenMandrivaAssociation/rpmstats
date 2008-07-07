@@ -1,7 +1,7 @@
 Summary:	Gather statistics from installed packages
 Name:		rpmstats
 Version:	0.5.1
-Release:	%mkrel 2
+Release:	%mkrel 3
 Source0:	%{name}-%{version}.tar.bz2
 License:	GPL
 Group:		System/Configuration/Packaging
@@ -30,4 +30,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog
 %doc %{_mandir}/*/*
 %{_bindir}/*
-%{_libdir}/*
+%dir %{_libdir}/%{name}
+%{_libdir}/%{name}/%{name}
