@@ -1,6 +1,6 @@
 Summary:	Gather statistics from installed packages
 Name:		rpmstats
-Version:	0.6
+Version:	0.6.1
 Release:	%mkrel 1
 Source0:	%{name}-%{version}.tar.bz2
 License:	GPL
