@@ -1,12 +1,11 @@
 Summary:	Gather statistics from installed packages
 Name:		rpmstats
-Version:	0.6.1
+Version:	0.7
 Release:	%mkrel 1
-Source0:	%{name}-%{version}.tar.bz2
-License:	GPL
+Source0:	%{name}-%{version}.tar.xz
+License:	GPLv2+
 Group:		System/Configuration/Packaging
-BuildRequires:	rpm-devel
-BuildRoot:	%{_tmppath}/%{name}-buildroot
+BuildRequires:	rpm-devel >= 5.0
 
 %description
 rpmstats retrieves statistics about installed packages.
