@@ -1,7 +1,7 @@
 Summary:	Gather statistics from installed packages
 Name:		rpmstats
 Version:	0.7
-Release:	%mkrel 2
+Release:	%mkrel 3
 Source0:	%{name}-%{version}.tar.xz
 License:	GPLv2+
 Group:		System/Configuration/Packaging
