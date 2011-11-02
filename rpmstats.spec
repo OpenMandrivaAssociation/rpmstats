@@ -1,7 +1,7 @@
 Summary:	Gather statistics from installed packages
 Name:		rpmstats
 Version:	0.7
-Release:	%mkrel 3
+Release:	4
 # maintained at http://svn.mandriva.com/viewvc/soft/rpm/rpmstats/
 Source0:	%{name}-%{version}.tar.xz
 License:	GPLv2+
@@ -19,14 +19,9 @@ rpmstats retrieves statistics about installed packages.
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %makeinstall
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %files
-%defattr(-,root,root)
 %doc ChangeLog
 %doc %{_mandir}/*/*
 %{_bindir}/*
