@@ -26,7 +26,7 @@ rpmstats retrieves statistics about installed packages.
 %doc %{_mandir}/*/*
 %{_bindir}/*
 %dir %{_libdir}/%{name}
-%{_libdir}/%{name}/%{name}
+%{_libexecdir}/%{name}/%{name}
 
 
 %changelog
