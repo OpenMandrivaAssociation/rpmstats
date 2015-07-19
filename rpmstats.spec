@@ -1,7 +1,7 @@
 Summary:	Gather statistics from installed packages
 Name:		rpmstats
 Version:	0.7
-Release:	15
+Release:	16
 # maintained at http://svn.mandriva.com/viewvc/soft/rpm/rpmstats/
 Source0:	%{name}-%{version}.tar.xz
 License:	GPLv2+
