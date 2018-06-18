@@ -1,0 +1,80 @@
+diff -up ./rpmstats.c.tv2 ./rpmstats.c
+--- ./rpmstats.c.tv2	2017-09-07 09:41:25.097433149 +0200
++++ ./rpmstats.c	2017-09-07 09:42:05.066171751 +0200
+@@ -28,20 +28,14 @@ static const char compile_id[] = "$Compi
+ #include <regex.h>
+ #include <string.h>
+ 
+-#ifdef RPM_42
+ #include <rpm/rpmdb.h>
+ #include <rpm/rpmts.h>
+-#endif
+ 
+ int
+ main(int argc, char * argv[])
+ {
+   rpmdbMatchIterator mi;
+-#ifdef RPM_42
+   rpmts ts;
+-#else
+-  rpmdb db = NULL;
+-#endif
+   Header h;
+   int data_size ;
+   char ** file_list = NULL;
+@@ -56,25 +50,14 @@ main(int argc, char * argv[])
+   
+   rpmReadConfigFiles(NULL, NULL);
+ 
+-#ifdef RPM_42
+   ts = rpmtsCreate();
+   rpmtsSetRootDir(ts, "");
+   if (rpmtsOpenDB(ts, O_RDONLY)) {
+     fprintf(stderr, "unable to open rpm database\n");
+     exit(1);
+   }
+-#else
+-  if (rpmdbOpen("", &db, O_RDONLY, 0644)) {
+-    fprintf(stderr, "unable to open rpm database\n");
+-    exit(1);
+-  }
+-#endif
+ 
+-#ifdef RPM_42
+   mi = rpmtsInitIterator(ts, RPMDBI_PACKAGES, NULL, 0);
+-#else
+-  mi = rpmdbInitIterator(db, RPMDBI_PACKAGES, NULL, 0);
+-#endif
+   
+   if (regcomp(&rx, "/man/man\\|/usr/share/icons\\|/usr/lib/menu\\|/etc/menu-methods", 0)) {
+     perror("regcomp");
+@@ -94,19 +77,12 @@ main(int argc, char * argv[])
+     nvr = (char *) rpmtdGetString(&val);
+     if (nvr) {
+ 
+-#ifdef RPM_42
+       rpmfi fi;
+       fi = rpmfiNew(NULL, h, RPMTAG_BASENAMES, 0);
+       fi = rpmfiInit(fi, 0);
+       while (rpmfiNext(fi) >= 0) {
+ 	file = NULL;
+         fname = rpmfiFN(fi);
+-#else
+-      rpmBuildFileList(h, (const char ***)&file_list, &data_size);
+-      
+-      for(loop=0; loop<data_size; loop++) {
+-	fname = file_list[loop];
+-#endif
+ 	if (regexec(&rx, fname, 0, NULL, 0)) {
+ 	  if (stat(fname, &buf) == 0) {
+ 	    buf.st_atime = (buf.st_atime > buf.st_mtime) ? buf.st_atime : buf.st_mtime;
+@@ -131,9 +107,7 @@ fprintf(stderr, "file %s match regex\n",
+       } else {
+ 	printf("0 %s\n", nvr);
+       }
+-#ifdef RPM_42
+       fi = rpmfiFree(fi);
+-#endif
+       free(file_list);
+     }
+     rpmtdFreeData(&val);

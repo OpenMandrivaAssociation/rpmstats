@@ -1,0 +1,11 @@
+diff -up ./rpmstats.c.tv2 ./rpmstats.c
+--- ./rpmstats.c.tv2	2017-09-07 09:34:07.362344033 +0200
++++ ./rpmstats.c	2017-09-07 09:34:57.517270869 +0200
+@@ -99,6 +99,7 @@ main(int argc, char * argv[])
+       fi = rpmfiNew(NULL, h, RPMTAG_BASENAMES, 0);
+       fi = rpmfiInit(fi, 0);
+       while (rpmfiNext(fi) >= 0) {
++	file = NULL;
+         fname = rpmfiFN(fi);
+ #else
+       rpmBuildFileList(h, (const char ***)&file_list, &data_size);

@@ -1,0 +1,45 @@
+diff -up ./rpmstats.c.tv ./rpmstats.c
+--- ./rpmstats.c.tv	2017-09-07 08:30:09.081559945 +0200
++++ ./rpmstats.c	2017-09-07 09:33:45.691943574 +0200
+@@ -82,16 +82,17 @@ main(int argc, char * argv[])
+   }
+   
+   while ((h = rpmdbNextIterator(mi)) != NULL) {
+-    char *np, *vp, *rp;
+-    int type, count, loop;
++    struct rpmtd_s val;
++    char *nvr;
++    int type, loop;
+     struct stat buf;
+     int max = 0;
+     const char *file = NULL;
+     const char *fname = NULL;
+     
+-    if (headerGetEntry(h, RPMTAG_NAME, &type, (void **) &np, &count) &&
+-	headerGetEntry(h, RPMTAG_VERSION, &type, (void **) &vp, &count) &&
+-	headerGetEntry(h, RPMTAG_RELEASE, &type, (void **) &rp, &count)) {
++    headerGet(h, RPMTAG_NVR, &val, HEADERGET_EXT);
++    nvr = (char *) rpmtdGetString(&val);
++    if (nvr) {
+ 
+ #ifdef RPM_42
+       rpmfi fi;
+@@ -125,15 +126,16 @@ fprintf(stderr, "file %s match regex\n",
+ 	}
+       }
+       if (max != 0) {
+-	printf("%ld %s-%s-%s %s\n", (tv.tv_sec-max)/(3600*24), np, vp, rp, file);
++	printf("%ld %s %s\n", (tv.tv_sec-max)/(3600*24), nvr, file);
+       } else {
+-	printf("0 %s-%s-%s\n", np, vp, rp);
++	printf("0 %s\n", nvr);
+       }
+ #ifdef RPM_42
+       fi = rpmfiFree(fi);
+ #endif
+       free(file_list);
+     }
++    rpmtdFreeData(&val);
+   }
+ 
+   rpmdbFreeIterator(mi);
